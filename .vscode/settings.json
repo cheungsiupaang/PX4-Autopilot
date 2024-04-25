@@ -136,5 +136,19 @@
         "yaml.schemas": {
                 "${workspaceFolder}/validation/module_schema.yaml": "${workspaceFolder}/src/modules/*/module.yaml"
         },
-        "cortex-debug.openocdPath": "${env:PICO_SDK_PATH}/../openocd/src/openocd"       // Added for rp2040
+	"cortex-debug.openocdPath": "${env:PICO_SDK_PATH}/../openocd/src/openocd",
+	"python.autoComplete.extraPaths": [
+		"/home/zzp/pyuam_ws/devel/lib/python3/dist-packages",
+		"/home/zzp/mavros_ws/devel/lib/python3/dist-packages",
+		"/home/zzp/uam_ws/devel/lib/python3/dist-packages",
+		"/home/zzp/safeplan_ws/devel/lib/python3/dist-packages",
+		"/opt/ros/noetic/lib/python3/dist-packages"
+	],
+	"python.analysis.extraPaths": [
+		"/home/zzp/pyuam_ws/devel/lib/python3/dist-packages",
+		"/home/zzp/mavros_ws/devel/lib/python3/dist-packages",
+		"/home/zzp/uam_ws/devel/lib/python3/dist-packages",
+		"/home/zzp/safeplan_ws/devel/lib/python3/dist-packages",
+		"/opt/ros/noetic/lib/python3/dist-packages"
+	] // Added for rp2040
 }

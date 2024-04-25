@@ -63,6 +63,7 @@
 #include <uORB/topics/vehicle_status.h>
 #include <uORB/topics/vehicle_thrust_setpoint.h>
 #include <uORB/topics/vehicle_torque_setpoint.h>
+#include <uORB/topics/siupaang_roc.h>
 
 using namespace time_literals;
 
@@ -108,6 +109,8 @@ private:
 	uORB::Subscription _vehicle_land_detected_sub{ORB_ID(vehicle_land_detected)};
 	uORB::Subscription _vehicle_status_sub{ORB_ID(vehicle_status)};
 
+	uORB::Subscription _siupaang_roc_sub{ORB_ID(siupaang_roc)};
+
 	uORB::SubscriptionInterval _parameter_update_sub{ORB_ID(parameter_update), 1_s};
 
 	uORB::SubscriptionCallbackWorkItem _vehicle_angular_velocity_sub{this, ORB_ID(vehicle_angular_velocity)};
@@ -133,6 +136,13 @@ private:
 	perf_counter_t	_loop_perf;			/**< loop duration performance counter */
 
 	matrix::Vector3f _rates_sp;			/**< angular rates setpoint */
+
+	siupaang_roc_s _siupaang_roc{
+		.timestamp = 0,
+		.roc_x = 0.0f,
+		.roc_y = 0.0f,
+		.roc_z = 0.0f,
+	};
 
 	float		_thrust_sp{0.0f};		/**< thrust setpoint */
 

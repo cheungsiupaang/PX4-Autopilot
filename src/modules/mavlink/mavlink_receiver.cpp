@@ -116,6 +116,10 @@ void
 MavlinkReceiver::handle_message(mavlink_message_t *msg)
 {
 	switch (msg->msgid) {
+	case MAVLINK_MSG_ID_SIUPAANG_ROC:
+		handle_message_siupaang_roc(msg);
+		break;
+
 	case MAVLINK_MSG_ID_COMMAND_LONG:
 		handle_message_command_long(msg);
 		break;
@@ -959,6 +963,23 @@ MavlinkReceiver::handle_message_distance_sensor(mavlink_message_t *msg)
 	ds.signal_quality = dist_sensor.signal_quality == 0 ? -1 : 100 * (dist_sensor.signal_quality - 1) / 99;
 
 	_distance_sensor_pub.publish(ds);
+}
+
+void MavlinkReceiver::handle_message_siupaang_roc(mavlink_message_t *msg){
+	mavlink_siupaang_roc_t man;
+	mavlink_msg_siupaang_roc_decode(msg, &man);
+
+	struct siupaang_roc_s roc = {};
+	roc.timestamp = hrt_absolute_time();
+	roc.roc_x = man.roc_x;
+	roc.roc_y = man.roc_y;
+	roc.roc_z = man.roc_z;
+
+	if (_siupaang_roc_pub == nullptr) {
+        	_siupaang_roc_pub = orb_advertise(ORB_ID(siupaang_roc), &roc);
+    	} else {
+        	orb_publish(ORB_ID(siupaang_roc), _siupaang_roc_pub, &roc);
+    	}
 }
 
 void

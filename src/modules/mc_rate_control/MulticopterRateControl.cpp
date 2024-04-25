@@ -238,6 +238,9 @@ MulticopterRateControl::Run()
 				_rate_control.setSaturationStatus(saturation_positive, saturation_negative);
 			}
 
+			_siupaang_roc_sub.update(&_siupaang_roc);
+			const Vector3f siupaang_roc = Vector3f(_siupaang_roc.roc_x, _siupaang_roc.roc_y, _siupaang_roc.roc_z);	//
+
 			// run rate controller
 			const Vector3f att_control = _rate_control.update(rates, _rates_sp, angular_accel, dt, _maybe_landed || _landed);
 
