@@ -240,9 +240,12 @@ MulticopterRateControl::Run()
 
 			_siupaang_roc_sub.update(&_siupaang_roc);
 			const Vector3f siupaang_roc = Vector3f(_siupaang_roc.roc_x, _siupaang_roc.roc_y, _siupaang_roc.roc_z);	//
+			const Vector3f _thrust_sp_e3 = Vector3f(0.0, 0.0, _thrust_sp);	// thrust in earth frame
 
 			// run rate controller
-			const Vector3f att_control = _rate_control.update(rates, _rates_sp, angular_accel, dt, _maybe_landed || _landed);
+			const Vector3f att_control_0 = _rate_control.update(rates, _rates_sp, angular_accel, dt, _maybe_landed || _landed);
+
+			const Vector3f att_control = att_control_0 - siupaang_roc.cross(_thrust_sp_e3);
 
 			// publish rate controller status
 			rate_ctrl_status_s rate_ctrl_status{};
