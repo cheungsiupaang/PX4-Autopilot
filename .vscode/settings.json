@@ -150,5 +150,13 @@
 		"/home/zzp/uam_ws/devel/lib/python3/dist-packages",
 		"/home/zzp/safeplan_ws/devel/lib/python3/dist-packages",
 		"/opt/ros/noetic/lib/python3/dist-packages"
+	],
+	"spellright.language": [
+		"en-US-10-1."
+	],
+	"spellright.documentTypes": [
+		"markdown",
+		"latex",
+		"plaintext"
 	] // Added for rp2040
 }
